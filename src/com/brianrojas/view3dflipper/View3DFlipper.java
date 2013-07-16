@@ -24,8 +24,9 @@ public class View3DFlipper extends FrameLayout {
 	}
 	
 	private View mFrontView;
+	private int mFrontCenterX;
 	private View mRearView;
-	private float mCenterX;
+	private int mRearCenterX;
 	private int mDuration = 1000;
 	private View3DFlipperListener mListener;
 
@@ -50,10 +51,11 @@ public class View3DFlipper extends FrameLayout {
 		}
 		
 		mFrontView = getChildAt(0);
+		mFrontCenterX = mFrontView.getWidth() / 2;
+		
 		mRearView = getChildAt(1);
 		mRearView.setVisibility(View.INVISIBLE);
-		
-		mCenterX = getWidth() / 2;
+		mRearCenterX = mRearView.getWidth() / 2;
 	}
 	
 	public void flip() {
@@ -68,7 +70,7 @@ public class View3DFlipper extends FrameLayout {
 			frontToAngle = 90.0f;
 		}
 		
-		FlipAnimation flipAnimPart1 = new FlipAnimation(frontFromAngle, frontToAngle);
+		FlipAnimation flipAnimPart1 = new FlipAnimation(frontFromAngle, frontToAngle, mFrontCenterX);
 		flipAnimPart1.setDuration(mDuration / 2);
 		flipAnimPart1.setInterpolator(new AccelerateInterpolator());
 		flipAnimPart1.setAnimationListener(new AnimationListener() {
@@ -92,16 +94,20 @@ public class View3DFlipper extends FrameLayout {
 				mFrontView.setVisibility(View.INVISIBLE);
 				mRearView.setVisibility(View.VISIBLE);
 				
-				FlipAnimation flipAnimPart2 = new FlipAnimation(rearFromAngle, rearToAngle);
+				FlipAnimation flipAnimPart2 = new FlipAnimation(rearFromAngle, rearToAngle, mRearCenterX);
 				flipAnimPart2.setDuration(mDuration / 2);
 				flipAnimPart2.setInterpolator(new DecelerateInterpolator());
 				flipAnimPart2.setFillAfter(true);
 				flipAnimPart2.setAnimationListener(new AnimationListener() {
 					@Override
 					public void onAnimationStart(Animation animation) {
-						View temp = mFrontView;
+						View tempView = mFrontView;
 						mFrontView = mRearView;
-						mRearView = temp;
+						mRearView = tempView;
+						
+						int tempInt = mFrontCenterX;
+						mFrontCenterX = mRearCenterX;
+						mRearCenterX = tempInt;
 					}
 					
 					@Override
@@ -138,10 +144,12 @@ public class View3DFlipper extends FrameLayout {
 		private Camera mCamera = new Camera();
 		private float mFromDegrees;
 		private float mToDegrees;
+		private int mCenterX;
 		
-		public FlipAnimation(float fromDegrees, float toDegrees) {
+		public FlipAnimation(float fromDegrees, float toDegrees, int centerX) {
 			mFromDegrees = fromDegrees;
 			mToDegrees = toDegrees;
+			mCenterX = centerX;
 		}
 		
 		@Override

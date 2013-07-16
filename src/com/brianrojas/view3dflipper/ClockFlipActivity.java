@@ -7,9 +7,9 @@ import android.view.View.OnClickListener;
 
 public final class ClockFlipActivity extends Activity {
 
-	private View3DFlipper mFlipper;
+private View3DFlipper mFlipper;
 	
-	private boolean mIsShowingTime = false;
+    private boolean mFlipRight = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -20,11 +20,11 @@ public final class ClockFlipActivity extends Activity {
 		mFlipper.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!mIsShowingTime) {
-					mIsShowingTime = true;
+				if (!mFlipRight) {
+					mFlipRight = true;
 					mFlipper.flip(View3DFlipper.Direction.LEFT);
 				} else {
-					mIsShowingTime = false;
+					mFlipRight = false;
 					mFlipper.flip(View3DFlipper.Direction.RIGHT);
 				}
 			}
