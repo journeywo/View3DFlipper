@@ -1,7 +1,7 @@
 View3DFlipper
 =============
 
-Android 3D View Flipper
+Android - 3D View Flipper
 
 Contains a class, View3DFlipper, which implements a view flip transition animation like seen in iOS.  This class uses only tween animations and has been tested down to API level 8.
 
