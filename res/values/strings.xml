@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">View3DFlipper</string>
+    <string name="title_start_anim_button">Start Animation</string>
+    <string name="title_section_1">Clock Flip</string>
+    <string name="title_section_2">Grid Flip</string>
+    <string name="text_what_time">What time is it?\nPress me to find out.</string>
+    <string name="text_go_back">Cool, press me to go back.</string>
+
+</resources>
